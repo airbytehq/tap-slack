@@ -70,7 +70,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "reply_count": {
       "type": [

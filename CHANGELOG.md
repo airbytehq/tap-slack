@@ -2,7 +2,7 @@
 
 ## 1.0.1-airbyte
     * Fixed thread_ts overwrite for each message.
-    * Formatted thread_ts as ISO date.
+    * Formatted thread_ts as ISO date in threads and messages streams.
     [#1][https://github.com/airbytehq/tap-slack/pull/1]
 
 ## 1.0.0

@@ -299,7 +299,8 @@
       "type": [
         "null",
         "string"
-      ]
+      ],
+      "format": "date-time"
     },
     "topic": {
       "type": [

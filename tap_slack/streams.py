@@ -269,14 +269,14 @@ class ConversationHistoryStream(SlackStream):
                                             integer_datetime_fmt=
                                             "unix-seconds-integer-datetime-parsing"
                                     ) as transformer:
+                                        record_timestamp = data['thread_ts'].partition('.')[0]
+                                        if data['thread_ts']:
+                                            data['thread_ts'] = record_timestamp
                                         transformed_record = transformer.transform(
                                             data=data,
                                             schema=schema,
                                             metadata=metadata.to_map(mdata)
                                         )
-                                        record_timestamp = \
-                                            transformed_record.get('thread_ts', '').partition('.')[
-                                                0]
                                         record_timestamp_int = int(record_timestamp)
                                         if record_timestamp_int >= start.timestamp():
                                             if self.write_to_singer:
