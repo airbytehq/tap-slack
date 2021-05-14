@@ -269,8 +269,8 @@ class ConversationHistoryStream(SlackStream):
                                             integer_datetime_fmt=
                                             "unix-seconds-integer-datetime-parsing"
                                     ) as transformer:
-                                        record_timestamp = data['thread_ts'].partition('.')[0]
-                                        if data['thread_ts']:
+                                        if data.get('thread_ts'):
+                                            record_timestamp = data['thread_ts'].partition('.')[0]
                                             data['thread_ts'] = record_timestamp
                                         transformed_record = transformer.transform(
                                             data=data,
@@ -390,7 +390,7 @@ class ThreadsStream(SlackStream):
                                                          date_fields=self.date_fields,
                                                          channel_id=channel_id)
                     for message in transformed_threads:
-                        if message['thread_ts']:
+                        if message.get('thread_ts'):
                             message['thread_ts'] = message['thread_ts'].partition('.')[0]
                         with singer.Transformer(
                                 integer_datetime_fmt="unix-seconds-integer-datetime-parsing") \
