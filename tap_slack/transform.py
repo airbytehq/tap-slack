@@ -30,12 +30,13 @@ def transform_json(stream, data, date_fields, channel_id=None):
                 record.pop("parent_conversation", None)
                 record.pop("channel_id", None)
 
+            # Set date field value for all streams
+            # Set "thread_ts" to record value in "messages" stream
+            # Do not change "thread_ts" value for other streams
             for date_field in date_fields:
                 timestamp = record.get(date_field, None)
                 if timestamp and isinstance(timestamp, str):
-                    if stream == 'messages' or stream == "threads" and date_field == 'ts':
-                        record['thread_ts'] = timestamp
-                        record[date_field] = decimal_timestamp_to_utc_timestamp(timestamp)
-                    else:
-                        record[date_field] = decimal_timestamp_to_utc_timestamp(timestamp)
+                    if stream == "messages":
+                        record["thread_ts"] = timestamp
+                    record[date_field] = decimal_timestamp_to_utc_timestamp(timestamp)
     return data
